@@ -12,16 +12,22 @@
     <div class="row infinite-container mt-5">
         {% for chambre in chambres %}
             <div class="col-md-6 infinite-item">
-                <div class="card mb-4 shadow-sm">
-                            <h5>{{chambre.chambernumber}}</h5>
-                            <a href=" {% url 'campus:detailChambre' chambre.id %} ">detail </a>
-                    
+                
+                <div class=" mb-4 shadow">
+                            <span>{{chambre.chambernumber}}</span>
+                            <a href=" {% url 'campus:editChambre' chambre.id %} "
+                                class="btn-floating btn-small tooltipped waves-effect waves-light yellow float-right mr-3" data-position="top"
+                                data-tooltip="Edit"><i class="material-icons">edit</i></a>
+                            
+                            <a href=" {% url 'campus:detailChambre' chambre.id %} " class="float-right mr-3 tooltipped waves-effect waves-light" data-position="bottom"
+                            data-tooltip="details"> <i class="material-icons">info </i> </a>
+
                     
                     <hr>
                     <div class="card-body">
-                        <h5>{{chambre.batnumber}}</h5>
+                        <strong>Numéro Batiment: </strong> <span>{{chambre.batnumber}}</span>
                         <p class="card-text">
-                            {{chambre.typeChambre}}
+                            <strong>Type de chambre: </strong>{{chambre.typeChambre}}
                         </p>
                     </div>
                 </div>

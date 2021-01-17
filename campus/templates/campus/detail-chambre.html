@@ -1,21 +1,27 @@
 {% extends "campus/index.html" %}
 {% block content %}
   <div class="col-md-6 infinite-item">
-    <div class="mb-4 shadow-sm">
-                <h5>{{chambre.chambernumber}}</h5>
-                <a href=" {% url 'campus:detailChambre' chambre.id %} ">details </a>
-        
-        
+    <div class="mt-4 mb-4 shadow-sm">
+                <span>{{chambre.chambernumber}}</span>
+                <a href=" {% url 'campus:listeChambre' %}" class="float-right waves-light"><i class="material-icons">arrow_back</i> </a>
         <hr>
         <div class="row">
             <div class="col-md-6">
                 <h5>{{chambre.batnumber}}</h5>
                 <p class="card-text">
-                    {{chambre.typeChambre}}
+                    <strong>type</strong>: {{chambre.typeChambre}}
                 </p>
             </div>
-            <div class="col">
-                <a href=" {% url 'campus:detailChambre' chambre.id %} " class="float-right">  {{studentOfThisChamber}} </a>
+            <div class="col row">
+                <div class="col s12 m6">
+                    <div class="card blue-grey darken-1">
+                      <div class="card-content white-text">
+                        <span class="card-title">Nombre d'etudiant</span>
+                        <p class="text-center"> {{studentOfThisChamber}} </p>
+                      </div>
+                      
+                    </div>
+                  </div>
             </div>
            
         </div>

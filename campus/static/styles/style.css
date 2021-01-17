@@ -2,10 +2,7 @@
     width: 70%;
 }
 
-.infinite-container{
-    height: 200px;
-    overflow-y: scroll;
-}
+
 strong{
     font-weight: bold;
 }

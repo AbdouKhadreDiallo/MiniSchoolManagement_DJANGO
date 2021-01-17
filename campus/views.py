@@ -111,6 +111,15 @@ def editStudent(request, pk):
     context["form"] = form
     return render(request, 'campus/edit-etudiant.html', context)
 
+def editChambre(request, pk):
+    context = {}
+    etudiant = get_object_or_404(Chambre, pk=pk)
+    form = Chambreform(request.POST or None, instance=etudiant)
+    if form.is_valid():
+        form.save()
+        return redirect('/listeChambre')
+    context["form"] = form
+    return render(request, 'campus/edit-chambre.html', context)
 
 def delete(request, pk, template_name='campus/delete-apprenant.html'):
     etudiant = get_object_or_404(Etudiant, pk=pk)

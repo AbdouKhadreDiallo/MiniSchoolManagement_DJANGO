@@ -7,6 +7,7 @@ urlpatterns = [
     path('listeChambre/', views.ChambreListView.as_view(), name='listeChambre'),
     path('addStudent/', views.addStudent, name='addStd'),
     path('editStudent/<int:pk>/', views.editStudent, name='editStd'),
+    path('editChambre/<int:pk>/', views.editChambre, name='editChambre'),
     path('delete/<int:pk>', views.delete, name='delete'),
     path('addChambre/', views.ChambreFormView.as_view(), name="addChambre"),
     path('detailChambre/<int:pk>', views.detailChambre, name="detailChambre"),
