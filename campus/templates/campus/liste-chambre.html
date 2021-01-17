@@ -1,0 +1,60 @@
+{% extends "campus/index.html" %}
+{% block content %}
+    <div class="header mb-4">
+        <div class="float-right">
+            <a href="{% url 'campus:addChambre' %}"
+                class="btn-floating btn-small tooltipped waves-effect waves-light primary" data-position="bottom"
+                data-tooltip="Add"><i class="material-icons">add</i></a>
+            
+        </div>
+    
+    </div>
+    <div class="row infinite-container mt-5">
+        {% for chambre in chambres %}
+            <div class="col-md-6 infinite-item">
+                <div class="card mb-4 shadow-sm">
+                            <h5>{{chambre.chambernumber}}</h5>
+                            <a href=" {% url 'campus:detailChambre' chambre.id %} ">detail </a>
+                    
+                    
+                    <hr>
+                    <div class="card-body">
+                        <h5>{{chambre.batnumber}}</h5>
+                        <p class="card-text">
+                            {{chambre.typeChambre}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% if page_obj.has_next %}
+    <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
+    {% endif %}
+    <div class="d-flex justify-content-center" style="display:none;">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+{% endblock content %}
+{% block javascript %}
+<script src="/static/js/jquery.waypoints.min.js"></script>
+<script src="/static/js/infinite.min.js"></script>
+<script>
+    var infinite = new Waypoint.Infinite({
+        element: $('.infinite-container')[0],
+        handler: function(direction) {
+
+    },
+    offset: 'bottom-in-view',
+
+    onBeforePageLoad: function () {
+    $('.spinner-border').show();
+    },
+    onAfterPageLoad: function () {
+    $('.spinner-border').hide();
+    }
+
+    });
+</script>
+{% endblock javascript %}

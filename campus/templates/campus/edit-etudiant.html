@@ -1,0 +1,47 @@
+{% extends "campus/index.html" %}
+{% block content %}
+{% load materializecss %}
+<form method="post" class="col-7 shadow text-center" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form | materializecss }}
+    <!-- <button type="submit" class="btn btn-primary">post</button> -->
+    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+        <i class="material-icons right">send</i>
+      </button>
+</form>
+
+{% endblock content %}
+
+{% block javascript %}
+<script>
+    $(document).ready(function () {
+        $('.datepicker').datepicker({ 'format': 'yyyy-mm-dd' });
+    });
+    //$('#id_bourse').parent().hide();
+        //$('#id_addresse').parent().show();
+        //$("select[name='chambre']").parent().hide();
+        $("select[name='typeEtudiant']").change(function () {
+            if ($("select[name='typeEtudiant']").val() == "Non Boursier") {
+                $('#id_addresse').parent().show();
+                $('#id_bourse').parent().hide();
+                $("select[name='chambre']").parent().hide();
+            }
+            if ($("select[name='typeEtudiant']").val() == "Boursier logé") {
+                $('#id_bourse').parent().show();
+                $('#id_addresse').parent().hide();
+                $("select[name='chambre']").parent().show();
+            }
+            if ($("select[name='typeEtudiant']").val() == "Boursier non logé") {
+                $('#id_bourse').parent().show();
+                $('#id_addresse').parent().hide();
+                $("select[name='chambre']").parent().hide();
+            }
+        });
+        $('#id_firstname, #id_lastname').bind('keypress blur', function() {
+        
+        $('#id_matricule').val($('#id_firstname').val().slice(-2) + '-' +
+                                 $('#id_lastname').val().substr(0,2) + '-' +
+                                 Math.floor(1000 + Math.random() * 9000) );
+        });
+</script>
+{% endblock javascript %}

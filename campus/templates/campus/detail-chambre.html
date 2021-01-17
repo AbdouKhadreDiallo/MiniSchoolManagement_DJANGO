@@ -1,0 +1,24 @@
+{% extends "campus/index.html" %}
+{% block content %}
+  <div class="col-md-6 infinite-item">
+    <div class="mb-4 shadow-sm">
+                <h5>{{chambre.chambernumber}}</h5>
+                <a href=" {% url 'campus:detailChambre' chambre.id %} ">details </a>
+        
+        
+        <hr>
+        <div class="row">
+            <div class="col-md-6">
+                <h5>{{chambre.batnumber}}</h5>
+                <p class="card-text">
+                    {{chambre.typeChambre}}
+                </p>
+            </div>
+            <div class="col">
+                <a href=" {% url 'campus:detailChambre' chambre.id %} " class="float-right">  {{studentOfThisChamber}} </a>
+            </div>
+           
+        </div>
+    </div>
+</div>
+{% endblock content %}  

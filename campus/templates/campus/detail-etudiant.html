@@ -1,0 +1,33 @@
+{% extends "campus/index.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-6 s12 m6">
+        <div class="card">
+            <div class="card-image">
+                <img src="{{ etudiant.image.url}}" class="mw-100" style="height: 300px;">
+                <span class="card-title"> {{etudiant.firstname}} </span>
+                <a href="{% url 'campus:editStd' etudiant.id %}" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">edit</i></a>
+            </div>
+            <div class="card-content">
+                <ul class="collection">
+                    <li class="collection-item"> <strong>Firstname</strong>: {{etudiant.firstname}}</li>
+                    <li class="collection-item"> <strong>Lastname</strong>: {{etudiant.lastname}}</li>
+                    <li class="collection-item"> <strong>Email</strong> : {{etudiant.email}}</li>
+                    <li class="collection-item"> <strong>Numero de telephone</strong> : {{etudiant.phone}}</li>
+                    <li class="collection-item"> <strong>Type d'etudiant</strong> : {{etudiant.typeEtudiant}}</li>
+                    {% if etudiant.typeEtudiant == 'Non Boursier' %}
+                    <li class="collection-item"> <strong>Adresse</strong> : {{etudiant.addresse}}</li>
+                    {% endif %}
+                    {% if etudiant.typeEtudiant == 'Boursier logé' %}
+                    <li class="collection-item"> <strong>Bourse</strong> : {{etudiant.bourse}}</li>
+                    <li class="collection-item"> <strong>Chambre</strong> : {{etudiant.chambre}}</li>
+                    {% endif %}
+                    {% if etudiant.typeEtudiant == 'Boursier non logé' %}
+                    <li class="collection-item"> <strong>Bourse</strong> : {{etudiant.bourse}}</li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

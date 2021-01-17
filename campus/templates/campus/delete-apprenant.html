@@ -1,0 +1,21 @@
+<div id="modal1" class="modal"></div>
+{% extends "campus/index.html" %}
+{% block content %}
+{% load materializecss %}
+
+    <form method="post" class="col-7 shadow text-center">
+        {% csrf_token %}
+        <div class="alert alert-warning">
+            Are you sure you want to delete {{ etudiant }}?
+        </div>
+        <!-- <button type="submit" class="btn btn-primary">post</button> -->
+        <button class="btn waves-effect waves-light red" type="submit" name="action">Submit
+            <i class="material-icons right">send</i>
+          </button>
+    </form>
+
+
+
+{% endblock content %}
+</div>
+

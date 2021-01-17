@@ -1,0 +1,36 @@
+{% extends "campus/index.html" %}
+{% block content %}
+{% load materializecss %}
+
+{% if messages %}
+    {% for message in messages %}
+        {% if 'info' in message.tags %}
+            <div class="card-panel green lighten-2 col-7 ">
+                {{ message }} 
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+<form method="post" class="col-7 shadow text-center">
+    {% csrf_token %}
+    {{ form | materializecss }}
+    <br>
+    <!-- <button type="submit" class="btn btn-primary">post</button> -->
+    <button class="btn waves-effect waves-light mb-3" type="submit" name="action">Submit
+      </button>
+</form>
+
+{% endblock content %}
+{% block javascript %}
+<script>
+    $(document).ready(function () {
+        // Initialize materialize data picker
+        $('.datepicker').datepicker({ 'format': 'yyyy-mm-dd' });
+        $('select').formSelect();
+        //$('#id_matricule').prop("disabled", true);
+        
+       
+    });
+</script>
+{% endblock javascript %}

@@ -1,0 +1,111 @@
+{% extends "campus/index.html" %}
+{% block content %}
+<div class="z-depth-5 highlight">
+    <div class="header mb-4">
+        <div class="float-left ml-3 mt-3">
+            list apprenant
+        </div>
+        <div class="float-right">
+            <a href="{% url 'campus:addStd' %}"
+                class="btn-floating btn-small tooltipped waves-effect waves-light primary" data-position="bottom"
+                data-tooltip="Add"><i class="material-icons">add</i></a>
+            
+        </div>
+       
+    </div>
+    
+    <table class="striped mt-3">
+        <thead>
+            <tr>
+                <th scope="col">matricule</th>
+                <th scope="col">Firstname</th>
+                <th scope="col">LastName</th>
+                <th scope="col">Email</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <th scope="row"> {{user.matricule}} </th>
+                <td>{{user.firstname}}</td>
+                <td> {{user.lastname}} </td>
+                <td> {{user.email}} </td>
+                <td>
+                    <a href="{% url 'campus:editStd' user.id %}"
+                        class="btn-floating btn-small tooltipped waves-effect waves-light yellow" data-position="top"
+                        data-tooltip="Edit"><i class="material-icons">edit</i></a>
+                    <a href="{% url 'campus:delete' user.id %}" data-target="{% url 'campus:delete' user.id %}"
+                        class="waves-effect waves-light btn modal-trigger open-incident"> <i class="material-icons">delete</i> </a>
+                        <a href="{% url 'campus:detailEtudiant' user.id %}" 
+                        class="btn-floating btn-small tooltipped waves-effect waves-light yellow" data-position="top"
+                        data-tooltip="Detail"> <i class="material-icons">details</i> </a>
+                    <!-- <a href="{% url 'campus:addStd' %}" class="btn-floating btn-small tooltipped waves-effect waves-light red" data-position="right" data-id="${user.id}" data-tooltip="Delete"><i class="material-icons">delete</i></a> -->
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    
+
+    {% if users.has_other_pages %}
+    <ul class="pagination">
+        {% if users.has_previous %}
+        <li class="waves-effect"><a href="?page=
+                    {{ users.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i
+                    class="material-icons">chevron_left</i></a></li>
+        {% else %}
+        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+        {% endif %}
+        {% for num in users.paginator.page_range %}
+        {% if users.number == num %}
+        <li class="active"><a href="#!">{{ num }}</a></li>
+        {% else %}
+        <li class="waves-effect"><a href="?page={{ num }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ num
+                }}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if users.has_next %}
+        <li class="waves-effect"><a
+                href="?page={{ users.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i
+                    class="material-icons">chevron_right</i></a></li>
+        {% else %}
+        <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+        {% endif %}
+    </ul>
+    {% endif %}
+</div>
+
+{% endblock content %}
+{% block javascript %}
+<script>
+   
+    $(document).ready(function () {
+        $('.tooltipped').tooltip();
+    });
+    $('.deleteBtn').each((i, elm) => {
+        $(elm).on("click", (e) => {
+            deleteRoom($(elm))
+        })
+    });
+
+    function deleteRoom(el) {
+        roomId = $(el).data('id')
+        $.ajax({
+            url: `delete/${roomId}`,
+            type: 'post',
+            dataType: 'json',
+            success: function (data) {
+                $(el).parents()[1].remove()
+            }
+        });
+    }
+    $(document).on("click", ".open-incident", function (e) {
+        $('.modal').modal();
+    });
+
+
+</script>
+
+{% endblock javascript %}
